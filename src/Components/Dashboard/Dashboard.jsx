@@ -27,20 +27,22 @@ function aggregateFertilizerData(data) {
   return Object.values(aggregation);
 }
 
-function aggregateYearlyData(data) {
+function aggregateYearlyData(data, selectedProduct) {
   const aggregation = {};
   data.forEach((item) => {
-    const { month, requirement_in_mt_, availability_in_mt_ } = item;
-    if (!aggregation[month]) {
-      aggregation[month] = {
-        month,
-        totalRequirement: 0,
-        totalAvailability: 0,
-      };
+    if (selectedProduct === "All" || item.product === selectedProduct) {
+      const { month, requirement_in_mt_, availability_in_mt_ } = item;
+      if (!aggregation[month]) {
+        aggregation[month] = {
+          month,
+          totalRequirement: 0,
+          totalAvailability: 0,
+        };
+      }
+      aggregation[month].totalRequirement += parseFloat(requirement_in_mt_) || 0;
+      aggregation[month].totalAvailability +=
+        parseFloat(availability_in_mt_) || 0;
     }
-    aggregation[month].totalRequirement += parseFloat(requirement_in_mt_) || 0;
-    aggregation[month].totalAvailability +=
-      parseFloat(availability_in_mt_) || 0;
   });
   return Object.values(aggregation);
 }
@@ -48,7 +50,9 @@ function aggregateYearlyData(data) {
 function Dashboard() {
   const [selectedProduct, setSelectedProduct] = useState("DAP");
   const aggregatedData = useMemo(() => aggregateFertilizerData(data), []);
-  const yearlyAggregatedData = useMemo(() => aggregateYearlyData(data), []);
+  
+  // Update yearly data based on selected product
+  const yearlyAggregatedData = useMemo(() => aggregateYearlyData(data, selectedProduct), [selectedProduct]);
 
   const topRequired = [...aggregatedData]
     .sort((a, b) => b.totalRequirement - a.totalRequirement)
@@ -78,7 +82,7 @@ function Dashboard() {
         <div className="chart-container">
           <h2>Yearly Availability/Requirement for {selectedProduct}</h2>
           <ProductSelector
-            products={[...new Set(data.map((item) => item.product))]}
+            products={["All", ...new Set(data.map((item) => item.product))]} // Added "All" option
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
           />
