@@ -1,0 +1,11 @@
+.FertilizerList {
+  flex: 4;
+  width: 100%;
+}
+.FertilizerList h3 {
+  padding: 20px;
+}
+.FertilizerListTable {
+  display: flex;
+  height: calc(100vh - 125px);
+}

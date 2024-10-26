@@ -1,9 +1,8 @@
-import ProductList from "./Pages/ProductList"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Sidebar from "./Components/Sidebar"
 import Topbar from "./Components/Topbar"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-
-import Home from "./Pages/Home"
+import FertilizerDashboard from "./Pages/FertilizerDashboard"
+import FertilizerList from "./Pages/FertilizerList"
 
 import "./App.css"
 
@@ -16,10 +15,10 @@ function App() {
           <Sidebar />
           <Switch>
             <Route exact path="/">
-              <Home />
+              <FertilizerDashboard />
             </Route>
-            <Route exact path="/product">
-              <ProductList />
+            <Route exact path="/fertilizers">
+              <FertilizerList />
             </Route>
           </Switch>
         </div>
