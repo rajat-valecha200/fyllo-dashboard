@@ -48,7 +48,7 @@ function aggregateYearlyData(data, selectedProduct) {
 }
 
 function Dashboard() {
-  const [selectedProduct, setSelectedProduct] = useState("DAP");
+  const [selectedProduct, setSelectedProduct] = useState("All");
   const aggregatedData = useMemo(() => aggregateFertilizerData(data), []);
   
   // Update yearly data based on selected product
@@ -82,7 +82,7 @@ function Dashboard() {
         <div className="chart-container">
           <h2>Yearly Availability/Requirement for {selectedProduct}</h2>
           <ProductSelector
-            products={["All", ...new Set(data.map((item) => item.product))]} // Added "All" option
+            products={["All", ...new Set(data.map((item) => item.product))]}
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
           />
