@@ -14,6 +14,7 @@ function FertilizerList() {
       width: 150,
       sortable: true,
       filter: "agNumberColumnFilter",
+      floatingFilter: true,
     },
     {
       field: "month",
@@ -21,6 +22,7 @@ function FertilizerList() {
       width: 120,
       sortable: true,
       filter: true,
+      floatingFilter: true,
       comparator: monthComparator,
     },
     {
@@ -29,6 +31,7 @@ function FertilizerList() {
       width: 180,
       sortable: true,
       filter: true,
+      floatingFilter: true,
     },
     {
       field: "state",
@@ -36,6 +39,7 @@ function FertilizerList() {
       width: 200,
       sortable: true,
       filter: true,
+      floatingFilter: true,
     },
     {
       field: "requirement_in_mt_",
